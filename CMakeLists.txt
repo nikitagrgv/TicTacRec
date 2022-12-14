@@ -14,7 +14,8 @@ find_package(Qt5 COMPONENTS
         Widgets
         REQUIRED)
 
-add_executable(TicTacRec main.cpp)
+add_executable(TicTacRec src/main.cpp src/MainWindow.cpp src/MainWindow.h)
+
 target_link_libraries(TicTacRec
         Qt5::Core
         Qt5::Gui
