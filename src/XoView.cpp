@@ -83,17 +83,17 @@ static QWidget *find_widget_r(QWidget *parent, const XoIndexes &indexes, int dep
 		return child_widget;
 }
 
-void XoView::setWinner(const XoIndexes &indexes, const QString& text)
+void XoView::setWinner(const XoIndexes &indexes, const QString &winner)
 {
 	auto w = find_widget_r(this, indexes, 0);
 
 	if (auto *button = dynamic_cast<QPushButton *>(w))
 	{
 		button->setEnabled(false); // TODO ?
-		button->setText(text);
+		button->setText(winner);
 	}
 
-	if (text.toUpper() == "X")
+	if (winner.toUpper() == "X")
 		w->setStyleSheet("background-color: green");
 	else
 		w->setStyleSheet("background-color: red");
@@ -118,7 +118,7 @@ QPushButton *XoView::get_button(const XoIndexes &indexes)
 	return nullptr;
 }
 
-void XoView::setButtonClickCallback(const std::function<void(const XoIndexes &)>& callback)
+void XoView::setButtonClickCallback(const std::function<void(const XoIndexes &)> &callback)
 {
 	button_click_callback_ = callback;
 }

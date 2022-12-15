@@ -20,9 +20,9 @@ class XoView : public QWidget
 public:
 	explicit XoView(QWidget *parent = nullptr);
 
-	void setButtonClickCallback(const std::function<void(const XoIndexes &indexes)>& callback);
+	void setButtonClickCallback(const std::function<void(const XoIndexes &indexes)> &callback);
 
-	void setWinner(const XoIndexes &indexes, const QString& text);
+	void setWinner(const XoIndexes &indexes, const QString &winner);
 	QString getText(const XoIndexes &indexes);
 
 private:
@@ -33,7 +33,7 @@ private:
 	QPushButton *get_button(const XoIndexes &indexes);
 
 private:
-	QList<std::pair<XoIndexes, QPushButton*>> buttons_;
+	QList<std::pair<XoIndexes, QPushButton *>> buttons_;
 
-	std::function<void (const XoIndexes& indexes)> button_click_callback_;
+	std::function<void(const XoIndexes &indexes)> button_click_callback_;
 };
