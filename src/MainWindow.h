@@ -3,6 +3,7 @@
 #include <QWidget>
 
 class XoView;
+class XoModel;
 
 class MainWindow : public QWidget
 {
@@ -13,6 +14,7 @@ public:
 
 private:
 	XoView* view_;
+	XoModel* model_;
 };
 
 

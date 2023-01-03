@@ -1,6 +1,6 @@
 #pragma once
 
-#include "XoIndex.h"
+#include "Index.h"
 
 #include <QDebug>
 #include <QGroupBox>
@@ -20,20 +20,17 @@ class XoView : public QWidget
 public:
 	explicit XoView(QWidget *parent = nullptr);
 
-	void setButtonClickCallback(const std::function<void(const XoIndexes &indexes)> &callback);
+	void setButtonClickCallback(const std::function<void(const Position &indexes)> &callback);
 
-	void setWinner(const XoIndexes &indexes, const QString &winner);
-	QString getText(const XoIndexes &indexes);
-
-private:
-	void add_r(QWidget *parent, const XoIndexes &indexes, int depth);
-
-	void on_button_clicked(const XoIndexes &indexes);
-
-	QPushButton *get_button(const XoIndexes &indexes);
+	void setWinner(const Position &indexes, const QString &winner);
 
 private:
-	QList<std::pair<XoIndexes, QPushButton *>> buttons_;
+	void add_r(QWidget *parent, const Position &indexes, int depth);
 
-	std::function<void(const XoIndexes &indexes)> button_click_callback_;
+	void on_button_clicked(const Position &indexes);
+
+private:
+	QList<std::pair<Position, QPushButton *>> buttons_;
+
+	std::function<void(const Position &indexes)> button_click_callback_;
 };

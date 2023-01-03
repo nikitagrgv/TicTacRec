@@ -1,6 +1,6 @@
 ---
 Language: Cpp
-Standard: c++14
+Standard: c++17
 AccessModifierOffset: -4
 AlignAfterOpenBracket: DontAlign
 AlignArrayOfStructures: Right

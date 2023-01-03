@@ -1,6 +1,7 @@
 #include "MainWindow.h"
 
 #include "XoView.h"
+#include "XoModel.h"
 
 MainWindow::MainWindow(QWidget *parent)
 	: QWidget(parent)
@@ -12,25 +13,18 @@ MainWindow::MainWindow(QWidget *parent)
 	view_ = new XoView(this);
 	lo->addWidget(view_);
 
-	view_->setButtonClickCallback([view_=view_](const XoIndexes& indexes){
-		QString strx;
-		QString stry;
+	model_ = new XoModel(this);
 
-		qDebug() << "depth:" << indexes.getDepth() ;
-		for (int i = 0; i < indexes.getDepth(); ++i)
+	view_->setButtonClickCallback([this](const Position &indexes) {
+		model_->addWinner(indexes, "X");
+	});
+
+	connect(model_, &XoModel::changed, [this](){
+		const auto &winners = model_->getWinners();
+
+		for (const auto& w : winners)
 		{
-			const XoIndex &index = indexes.getIndex(i);
-
-			strx += QString::number(index.x);
-			strx += " ";
-
-			stry += QString::number(index.y);
-			stry += " ";
+			view_->setWinner(w.first, w.second);
 		}
-
-		qDebug() << strx;
-		qDebug() << stry;
-
-		view_->setWinner(indexes, "X");
 	});
 }
