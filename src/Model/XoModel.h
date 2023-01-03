@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Index.h"
+#include "../Common/Index.h"
 
 #include <QList>
 #include <QObject>

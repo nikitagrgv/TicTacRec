@@ -1,10 +1,10 @@
 #include "XoView.h"
 
-#include "Index.h"
+#include "../Common/Index.h"
 
 #include <QSpacerItem>
 
-XoView::XoView(QWidget *parent)
+XoView::XoView(int depth, QWidget *parent)
 	: QWidget(parent)
 {
 	auto *lo = new QGridLayout(this);
@@ -12,7 +12,7 @@ XoView::XoView(QWidget *parent)
 
 	Position indexes;
 
-	add_r(this, indexes, 3);
+	add_r(this, indexes, depth);
 }
 
 void XoView::add_r(QWidget *parent, const Position &indexes, int depth)

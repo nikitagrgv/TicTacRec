@@ -1,7 +1,7 @@
 #include "MainWindow.h"
 
-#include "XoView.h"
-#include "XoModel.h"
+#include "Model/XoModel.h"
+#include "View/XoView.h"
 
 MainWindow::MainWindow(QWidget *parent)
 	: QWidget(parent)
@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 	auto *lo = new QVBoxLayout(this);
 
-	view_ = new XoView(this);
+	view_ = new XoView(3, this);
 	lo->addWidget(view_);
 
 	model_ = new XoModel(this);

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Index.h"
+#include "../Common/Index.h"
 
 #include <QDebug>
 #include <QGroupBox>
@@ -18,7 +18,7 @@ class XoView : public QWidget
 	Q_OBJECT
 
 public:
-	explicit XoView(QWidget *parent = nullptr);
+	XoView(int depth, QWidget *parent = nullptr);
 
 	void setButtonClickCallback(const std::function<void(const Position &indexes)> &callback);
 

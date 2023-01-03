@@ -14,7 +14,7 @@ find_package(Qt5 COMPONENTS
         Widgets
         REQUIRED)
 
-add_executable(TicTacRec src/main.cpp src/XoView.cpp src/XoView.h src/MainWindow.cpp src/MainWindow.h src/XoModel.cpp src/XoModel.h)
+add_executable(TicTacRec src/main.cpp src/View/XoView.cpp src/View/XoView.h src/MainWindow.cpp src/MainWindow.h src/Model/XoModel.cpp src/Model/XoModel.h)
 
 target_link_libraries(TicTacRec
         Qt5::Core
