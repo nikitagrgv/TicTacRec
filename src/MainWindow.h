@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Common/Player.h"
+
 #include <QWidget>
 
 class View;
@@ -13,8 +15,8 @@ public:
 	explicit MainWindow(QWidget *position = nullptr);
 
 private:
-	View * view_;
-	ContaineredTicTac * model_;
+	Player current_player_ = "X";
+
+	View *view_;
+	ContaineredTicTac *model_;
 };
-
-

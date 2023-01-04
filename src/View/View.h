@@ -27,6 +27,7 @@ public:
 
 private:
 	void add_r(QWidget *parent, const Position &position, int depth);
+	void set_widget_winner_r(QWidget *w, const Player &winner);
 
 	void on_button_clicked(const Position &position);
 

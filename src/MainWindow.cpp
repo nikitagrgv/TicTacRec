@@ -16,7 +16,8 @@ MainWindow::MainWindow(QWidget *parent)
 	model_ = new ContaineredTicTac(3, this);
 
 	view_->setButtonClickCallback([this](const Position &position) {
-		model_->setWinner(position, "X");
+		model_->setWinner(position, current_player_);
+		current_player_ = current_player_ == "X" ? "O" : "X";
 	});
 
 	connect(model_, &ContaineredTicTac::changed, [this](){

@@ -91,6 +91,11 @@ void View::setWinner(const Position &position, const Player &winner)
 {
 	auto w = find_widget_r(this, position, 0);
 
+	set_widget_winner_r(w, winner);
+}
+
+void View::set_widget_winner_r(QWidget *w, const Player &winner)
+{
 	if (auto *button = dynamic_cast<QPushButton *>(w))
 	{
 		button->setText(winner);
@@ -102,6 +107,17 @@ void View::setWinner(const Position &position, const Player &winner)
 		w->setStyleSheet("background-color: green");
 	else
 		w->setStyleSheet("background-color: red");
+
+	// go recursive through all child widgets
+	if (auto lo = w->layout())
+	{
+		for (int i = 0; i < lo->count(); i++)
+		{
+			const auto item = lo->itemAt(i);
+			auto *const child_widget = item->widget();
+			set_widget_winner_r(child_widget, winner);
+		}
+	}
 }
 
 void View::setButtonClickCallback(const std::function<void(const Position &)> &callback)

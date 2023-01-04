@@ -100,22 +100,81 @@ void ContaineredTicTac::update()
 	if (isElemental())
 		return;
 
-	int count = 0;
-	for (int i = 0; i < 3; ++i)
-	{
-		for (int j = 0; j < 3; ++j)
-		{
-			Position position;
-			position.addHighestIndex({j, i});
-			if (getWinner(position) == "X")
-				count++;
-		}
-	}
-
-	if (count >= 3)
+	if (is_winner("X"))
 		winner_ = "X";
+	else if (is_winner("O"))
+		winner_ = "O";
 
 	emit changed();
+}
+
+bool ContaineredTicTac::is_winner(const Player &player)
+{
+	// TODO improve this stupid way to check winner
+
+	// check horizontal lines
+	for (int y = 0; y < 3; ++y)
+	{
+		bool is_win_in_line = true;
+		for (int x = 0; x < 3; ++x)
+		{
+			if (getWinner({x, y}) != player)
+			{
+				is_win_in_line = false;
+				break;
+			}
+		}
+		if (is_win_in_line)
+			return true;
+	}
+
+	// check vertical lines
+	for (int x = 0; x < 3; ++x)
+	{
+		bool is_win_in_line = true;
+		for (int y = 0; y < 3; ++y)
+		{
+			if (getWinner({x, y}) != player)
+			{
+				is_win_in_line = false;
+				break;
+			}
+		}
+		if (is_win_in_line)
+			return true;
+	}
+
+	// check main diagonal line
+	{
+		bool is_win_in_line = true;
+		for (int i = 0; i < 3; ++i)
+		{
+			if (getWinner({i, i}) != player)
+			{
+				is_win_in_line = false;
+				break;
+			}
+		}
+		if (is_win_in_line)
+			return true;
+	}
+
+	// check main diagonal line
+	{
+		bool is_win_in_line = true;
+		for (int i = 0; i < 3; ++i)
+		{
+			if (getWinner({i, 3 - i - 1}) != player)
+			{
+				is_win_in_line = false;
+				break;
+			}
+		}
+		if (is_win_in_line)
+			return true;
+	}
+
+	return false;
 }
 
 ContaineredTicTac *ContaineredTicTac::get_child(Index index) const
@@ -125,3 +184,7 @@ ContaineredTicTac *ContaineredTicTac::get_child(Index index) const
 	return children_[3 * index.y + index.x];
 }
 
+Player ContaineredTicTac::getWinner(const Index &index) const
+{
+	return getWinner(Position{index});
+}

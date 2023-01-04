@@ -20,6 +20,11 @@ public:
 		: indexes_(std::move(other.indexes_))
 	{}
 
+	explicit Position(const Index &index)
+	{
+		indexes_.push_back(index);
+	}
+
 	explicit Position(const QList<Index> &indexes)
 		: indexes_(indexes)
 	{}
