@@ -45,10 +45,20 @@ public:
 	bool operator!=(const Position &rhs) const { return !(rhs == *this); }
 
 	const QList<Index> &getIndexes() const { return indexes_; }
+
 	const Index &getIndex(int depth) const { return indexes_[depth]; }
+
 	const Index &getDeepestIndex() const { return indexes_.last(); }
+	const Index &getHighestIndex() const { return indexes_.first(); }
+
 	void removeDeepestIndex() { indexes_.removeLast(); }
+	void removeHighestIndex() { indexes_.removeFirst(); }
+
+	void addDeepestIndex(const Index &index) { indexes_.push_back(index); }
+	void addHighestIndex(const Index &index) { indexes_.push_front(index); }
+
 	void addIndexToDepth(const Index &index) { indexes_.append(index); }
+
 	int getNumIndexes() const { return indexes_.size(); }
 
 private:

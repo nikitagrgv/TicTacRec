@@ -2,19 +2,19 @@
 
 #include <QWidget>
 
-class XoView;
-class XoModel;
+class View;
+class ContaineredTicTac;
 
 class MainWindow : public QWidget
 {
 	Q_OBJECT
 
 public:
-	explicit MainWindow(QWidget *parent = nullptr);
+	explicit MainWindow(QWidget *position = nullptr);
 
 private:
-	XoView* view_;
-	XoModel* model_;
+	View * view_;
+	ContaineredTicTac * model_;
 };
 
 

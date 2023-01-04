@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Common/Index.h"
+#include "../Common/Player.h"
 
 #include <QDebug>
 #include <QGroupBox>
@@ -13,24 +14,24 @@
 #include <QRadioButton>
 #include <QWidget>
 
-class XoView : public QWidget
+class View : public QWidget
 {
 	Q_OBJECT
 
 public:
-	XoView(int depth, QWidget *parent = nullptr);
+	View(int depth, QWidget *parent = nullptr);
 
 	void setButtonClickCallback(const std::function<void(const Position &indexes)> &callback);
 
-	void setWinner(const Position &indexes, const QString &winner);
+	void setWinner(const Position &position, const Player &winner);
 
 private:
-	void add_r(QWidget *parent, const Position &indexes, int depth);
+	void add_r(QWidget *parent, const Position &position, int depth);
 
-	void on_button_clicked(const Position &indexes);
+	void on_button_clicked(const Position &position);
 
 private:
 	QList<std::pair<Position, QPushButton *>> buttons_;
 
-	std::function<void(const Position &indexes)> button_click_callback_;
+	std::function<void(const Position &position)> button_click_callback_;
 };

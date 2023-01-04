@@ -1,7 +1,7 @@
 #include "MainWindow.h"
 
-#include "Model/XoModel.h"
-#include "View/XoView.h"
+#include "Model/ContaineredTicTac.h"
+#include "View/View.h"
 
 MainWindow::MainWindow(QWidget *parent)
 	: QWidget(parent)
@@ -10,19 +10,19 @@ MainWindow::MainWindow(QWidget *parent)
 
 	auto *lo = new QVBoxLayout(this);
 
-	view_ = new XoView(3, this);
+	view_ = new View(3, this);
 	lo->addWidget(view_);
 
-	model_ = new XoModel(this);
+	model_ = new ContaineredTicTac(3, this);
 
-	view_->setButtonClickCallback([this](const Position &indexes) {
-		model_->addWinner(indexes, "X");
+	view_->setButtonClickCallback([this](const Position &position) {
+		model_->setWinner(position, "X");
 	});
 
-	connect(model_, &XoModel::changed, [this](){
-		const auto &winners = model_->getWinners();
+	connect(model_, &ContaineredTicTac::changed, [this](){
+		const QList<std::pair<Position, Player>> &winners = model_->getWinners();
 
-		for (const auto& w : winners)
+		for (const std::pair<Position, Player>& w : winners)
 		{
 			view_->setWinner(w.first, w.second);
 		}
