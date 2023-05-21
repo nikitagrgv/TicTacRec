@@ -61,12 +61,12 @@ QList<std::pair<Position, Player>> ContaineredTicTac::getWinners() const
 {
 	QList<std::pair<Position, Player>> winners{};
 
-	add_winners_to_list(winners, Position{});
+	add_winners_to_list_r(winners, Position{});
 
 	return winners;
 }
 
-void ContaineredTicTac::add_winners_to_list(QList<std::pair<Position, Player>> &winners, Position position) const
+void ContaineredTicTac::add_winners_to_list_r(QList<std::pair<Position, Player>> &winners, Position position) const
 {
 	if (winner_ != NO_PLAYER)
 	{
@@ -85,7 +85,7 @@ void ContaineredTicTac::add_winners_to_list(QList<std::pair<Position, Player>> &
 			more_deep_position.addDeepestIndex({j, i});
 
 			auto child_tic_tac = get_child(more_deep_position.getDeepestIndex());
-			child_tic_tac->add_winners_to_list(winners, more_deep_position);
+			child_tic_tac->add_winners_to_list_r(winners, more_deep_position);
 		}
 	}
 }
@@ -187,4 +187,42 @@ ContaineredTicTac *ContaineredTicTac::get_child(Index index) const
 Player ContaineredTicTac::getWinner(const Index &index) const
 {
 	return getWinner(Position{index});
+}
+
+QList<Position> ContaineredTicTac::getFreeElementals() const
+{
+	QList<Position> positions;
+
+	add_free_elementals_to_list_r(positions, Position{});
+
+	return positions;
+}
+
+void ContaineredTicTac::add_free_elementals_to_list_r(QList<Position> &positions, Position position) const
+{
+	if (isElemental() && winner_ == NO_PLAYER)
+	{
+		positions.append(position);
+		return;
+	}
+
+	if (winner_ != NO_PLAYER)
+		return;
+
+	for (int i = 0; i < 3; ++i)
+	{
+		for (int j = 0; j < 3; ++j)
+		{
+			Position more_deep_position = position;
+			more_deep_position.addDeepestIndex({j, i});
+
+			auto child_tic_tac = get_child(more_deep_position.getDeepestIndex());
+			child_tic_tac->add_free_elementals_to_list_r(positions, more_deep_position);
+		}
+	}
+}
+
+bool ContaineredTicTac::isGameEnded() const
+{
+	return getFreeElementals().isEmpty();
 }

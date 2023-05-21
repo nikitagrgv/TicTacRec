@@ -22,13 +22,19 @@ public:
 
 	bool isElemental() const;
 
+	QList<Position> getFreeElementals() const;
+
+	bool isGameEnded() const;
+
 signals:
 	void changed();
 
 private:
 	void update();
 
-	void add_winners_to_list(QList<std::pair<Position, Player>> &winners, Position position) const;
+	void add_winners_to_list_r(QList<std::pair<Position, Player>> &winners, Position position) const;
+
+	void add_free_elementals_to_list_r(QList<Position> &positions, Position position) const;
 
 	ContaineredTicTac *get_child(Index index) const;
 
